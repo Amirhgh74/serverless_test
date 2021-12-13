@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2021-12-09
+Description: 'analyzer
+
+  '
+Resources:
+  AnalysisFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: AnalysisFunction
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /anomaly
+            Method: get
+Outputs:
+  analysisdApi:
+    Description: API Gateway endpoint URL for Prod stage for Analysis function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/anomaly/
+  AnalysisFunction:
+    Description: Analysis Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - AnalysisFunction
+      - Arn
+  AnalysisFunctionIamRole:
+    Description: Implicit IAM Role created for the Analysis function
+    Value:
+      Fn::GetAtt:
+      - AnalysisFunctionRole
+      - Arn
