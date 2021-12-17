@@ -1,12 +1,3 @@
-"""
-The interface to load log datasets. The datasets currently supported include
-HDFS and BGL.
-
-Authors:
-    LogPAI Team
-
-"""
-
 import pandas as pd
 import os
 import numpy as np
@@ -423,12 +414,12 @@ class PCA(object):
 
 def lambda_handler(event, context):
 
-    # dataID = event['queryStringParameters']['dataID']
+    dataID = event['queryStringParameters']['dataID']
 
 
     struct_log = 'HDFS_2k.csv'
-    # if dataID == "2":
-    #     struct_log = 'HDFS_100k.csv'
+    if dataID == "2":
+        struct_log = 'HDFS_100k.csv'
 
     label_file = 'anomaly_label.csv' # The anomaly label file
 
@@ -461,6 +452,3 @@ def lambda_handler(event, context):
     responseObject["body"] = json.dumps(response)
 
     return responseObject
-
-
-print(lambda_handler("a" , "b"))
